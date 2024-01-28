@@ -66,11 +66,15 @@ export default function Example({ params: { learnId } }: { params: Params }) {
     document.body.removeChild(link);
   };
 
+  // nextFlashcard and exportToCSV logic remains the same
+
+  const currentFlashcard = flashcards[currentFlashcardIndex];
+
   return (
     <div>
-      {flashcards.length > 0 && (
+      {currentFlashcard && (
         <FlashcardComponent
-          flashcard={flashcards[currentFlashcardIndex]}
+          flashcard={currentFlashcard}
           onGood={() => {
             handleGood();
             nextFlashcard();
