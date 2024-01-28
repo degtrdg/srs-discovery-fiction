@@ -1,0 +1,50 @@
+[
+  {
+    "question": "What are corks made of?",
+    "answer": "Wood"
+  },
+  {
+    "question": "Who came up with the name 'cell' for cells?",
+    "answer": "Robert Hooke"
+  },
+  {
+    "question": "Why did the name 'cell' for cells make sense at the time?",
+    "answer": "When looking at a cork through a microscope, the cell walls of the dead plant cells in the cork look like room cells"
+  },
+  {
+    "question": "In what century did Robert Hooke come up with the name for 'cell'?",
+    "answer": "The 16th century"
+  },
+  {
+    "question": "What is Cell Theory?",
+    "answer": "All living things are made of cells.\nLiving cells come from other living cells."
+  },
+  {
+    "question": "What innovation pushed us to discover cell? i.e. what was the bottleneck to us having discovering it earlier?",
+    "answer": "The microscope"
+  },
+  {
+    "question": "What was the prevailing theory before Cell Theory in ancient times?",
+    "answer": "Spontaneous generation"
+  },
+  {
+    "question": "What is spontaneous generation?",
+    "answer": "The theory that life can arise spontaneously from non-living matter."
+  },
+  {
+    "question": "Who disproved the theory of spontaneous generation?",
+    "answer": "Louis Pasteur."
+  },
+  {
+    "question": "In what year did Louis Pasteur disprove spontaneous generation?",
+    "answer": "1861."
+  },
+  {
+    "question": "What flask did Louis Pasteur use to disprove spontaneous generation?",
+    "answer": "The swan-neck flask"
+  },
+  {
+    "question": "What experiment did Louis Pasteur conduct to disprove spontaneous generation?",
+    "answer": "The swan-neck flask experiment, showing that microorganisms did not spontaneously generate in sterilized, sealed broth."
+  }
+]
