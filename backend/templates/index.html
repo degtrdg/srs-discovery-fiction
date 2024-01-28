@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Learning Platform</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            text-align: center;
+
+        }
+        .site-header {
+            position: fixed;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            align-self: flex-start; /* Aligns the header at the start (top) of the flex container */
+            padding: 10px 20px;
+            background-color: black; /* Adjust the background color as needed */
+        }
+
+        .logo img {
+            height: 50px; /* Adjust based on your logo size */
+        }
+
+        .site-navigation ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .site-navigation li {
+            margin-left: 20px; /* Space between navigation items */
+        }
+
+        .site-navigation a {
+            text-decoration: none;
+            color: white; /* Navigation item text color */
+        }
+
+        .site-navigation a:hover {
+            color: orange; /* Menu item hover color */
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+        }
+
+        .slogan {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .phrase {
+            color: gray;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            height: 1.5em; /* Adjust based on your content to ensure it's always tall enough */
+            overflow: hidden; /* Prevents content from exceeding the element's bounds */
+        }
+        .btn {
+            background-color: transparent; /* Makes the button transparent */
+            color: rgb(13, 66, 108); /* Sets the text color to rgb(13, 66, 108) */
+            border: 2px solid rgb(13, 66, 108); /* Adds a rgb(13, 66, 108) border */
+            padding: 20px 40px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            border-radius: 50px; /* Provides the beveled (rounded) edges */
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition for background and text color */
+        }
+
+        .btn:hover {
+            background-color: rgb(13, 66, 108); /* Fills the button with rgb(13, 66, 108) on hover */
+            color: white; /* Sets the text color to white on hover */
+        }
+
+        .btn:active {
+            background-color: white; /* Changes the button to white when clicked */
+            color: rgb(13, 66, 108); /* Keeps the text color rgb(13, 66, 108) when clicked */
+            border-color: white; /* Changes the border to white when clicked */
+        }
+
+        .highlight {
+            color: orange; /* Change the color to orange */
+        }
+        
+        #ascii-background {
+            position: fixed;
+            top: 50%; /* Start from the middle of the page */
+            left: 0;
+            width: 100%;
+            height: 50%; /* Fill only the bottom half of the page */
+            pointer-events: none;
+            z-index: -1;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-end;
+            overflow: hidden;
+
+            /* Apply a mask for the gradient transparency effect */
+            -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+            mask-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+        }
+
+        .ascii-row {
+            display: flex;
+        }
+
+        .ascii-char {
+            color: rgb(13, 66, 108);
+            font-size: 18px; /* Adjust based on your needs */
+            opacity: 0.8; /* Adjust for desired visibility */
+            font-family: 'Courier Prime', monospace; /* Use the typewriter-style font */
+            flex: 0 0 12px; /* Adjust width to control character spacing */
+            height: 18px; /* Adjust height to control line spacing */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/hackathon_logo.png') }}" alt="Description of the image">
+        </div>
+        <nav class="site-navigation">
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="ascii-background"></div>
+    <div class="content">
+        <div class="slogan">Transform your <span class="highlight">learning</span> with the power of <span class="highlight">AI</span></div>
+        <div id="phrase" class="phrase"></div>
+        <button class="btn" onclick="location.href='#'">Use DISCOVERY</button>
+    </div>
+
+    <script>
+        const phrases = [
+        "Master the basics of Python programming",
+        "Dive into the world of artificial intelligence and machine learning",
+        "Learn the fundamentals of web development",
+        "Understand the basics of cybersecurity",
+        "Understand the basics of blockchain and cryptocurrency",
+        "Learn how to develop mobile apps",
+        "Master advanced Excel functions and data analysis",
+        "Learn the basics of astronomy and stargazing",
+        "Explore the principles of robotics",
+        "Master the basics of digital marketing",
+        "Learn how to build your own computer",
+        "Learn the basics of aerodynamics and build model airplanes",
+        "Discover the language of the universe with quantum mechanics.",
+        "Transform industries with biotechnology.",
+        "Understand the fundamentals of electrical circuits."
+        ];
+        
+        function typePhrase(phrase, element, callback) {
+            let i = 0;
+            function typing() {
+                if (i < phrase.length) {
+                    element.textContent += phrase.charAt(i);
+                    i++;
+                    setTimeout(typing, 50); // Speed of typing
+                } else {
+                    setTimeout(callback, 2000); // Time before starting to delete
+                }
+            }
+            typing();
+        }
+        
+        function deletePhrase(element, callback) {
+            function deleting() {
+                let text = element.textContent;
+                if (text.length > 0) {
+                    element.textContent = text.substring(0, text.length - 1);
+                    setTimeout(deleting, 20); // Speed of deleting
+                } else {
+                    callback();
+                }
+            }
+            deleting();
+        }
+        
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+            }
+        }
+
+        function cyclePhrases(element, phrases) {
+            let index = 0;
+            shuffleArray(phrases); // Shuffle the phrases array
+
+            function nextPhrase() {
+                if (index >= phrases.length) {
+                    index = 0; // Reset index if we've gone through all phrases
+                    shuffleArray(phrases); // Shuffle again for a new sequence
+                }
+                typePhrase(phrases[index], element, () => {
+                    deletePhrase(element, () => {
+                        index++; // Move to the next phrase
+                        nextPhrase(); // Continue the cycle
+                    });
+                });
+            }
+
+            nextPhrase(); // Start the cycle
+        }
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            const phraseElement = document.getElementById("phrase");
+            cyclePhrases(phraseElement, phrases); // Pass the phrases array
+        });
+
+        function initializeAsciiBackground() {
+            const asciiContainer = document.getElementById('ascii-background');
+            const columns = Math.floor(window.innerWidth / 8); // Assuming each character span is about 10px wide
+            const rows = Math.floor(window.innerHeight / 2 / 18); // Assuming each character span is about 18px tall and filling half the window height
+            const rowElements = []; // Store row elements for efficient access
+
+            for (let y = 0; y < rows; y++) {
+                const row = document.createElement('div');
+                row.classList.add('ascii-row');
+                row.classList.add('ascii-char');
+                const initialRowArray = generateRowArray(columns); // Generate the full array for the row
+                row.textContent = initialRowArray.join(''); // Set row text content directly
+                asciiContainer.appendChild(row);
+                rowElements.push({element: row, array: initialRowArray}); // Store for animation
+            }
+
+            cycleRows(rowElements); // Start cycling all rows
+        }
+
+        function generateRowArray(length) {
+            return Array.from({length}, () => Math.random() > 0.5 ? '1' : '0');
+        }
+
+        function cycleRows(rowElements) {
+            setInterval(() => {
+                rowElements.forEach(({element, array}) => {
+                    array.unshift(array.pop()); // Rotate the array elements
+                    element.textContent = array.join(''); // Update the row content in one operation
+                });
+            }, 80); // Adjust for desired speed
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeAsciiBackground);
+
+
+        
+
+    </script>
+
+</body>
+</html>
+
+
