@@ -86,10 +86,10 @@ export default function Page({ params: { cardId } }: { params: Params }) {
                     }}
                 />
             )}
-            <div className="flex items-center">
+            <div className="flex justify-center mt-4 gap-2 items-center">
                 <button className="rounded-md bg-blue-500 text-slate-100 px-4 py-2 font-semibold" onClick={exportToCSV}>Export to CSV</button>
-                <a href={`/graph/${cardId}`} className="bg-blue-700 text-slate-100 rounded-md flex items-center px-4 py-2 font-semibold">
-                    <GlobeAmericasIcon className="h-8 w-8 fill-white text-blue-700" />
+                <a href={`/graph/${cardId}`} className="bg-blue-500 text-slate-100 rounded-md flex items-center px-4 py-2 font-semibold">
+                    <GlobeAmericasIcon className="h-8 w-8 fill-white text-blue-500" />
                     <span>View Depedency Graph</span>
                 </a>
             </div>
