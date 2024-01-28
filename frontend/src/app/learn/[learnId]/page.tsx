@@ -1,13 +1,11 @@
 "use client";
 import { useState, useEffect, useRef } from 'react';
-import { Popover } from '@headlessui/react'
+import BaseOutlet from '@/outlets/BaseOutlet';
 import Markdown from '@/components/Markdown';
 import { markdown } from '@/app/config';
 import ChatBox from '@/components/ChatBox';
-
-
-const logo = "https://tailwindui.com/img/logos/mark.svg?color=blue&shade=300";
-const companyName = "Your Company";
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
 const topicImage = "https://www.fast.ai/images/enlightenment.jpeg";
 const topicDescription = "test description";
@@ -56,8 +54,9 @@ export default function Example({ params: { learnId } }: { params: Params }) {
     };
 
     return (
-        <>
-            <div className="min-h-full">
+        <BaseOutlet className='py-16 px-12 flex justify-center'>
+            <div ref={markdownRef}>
+                <Markdown onMouseUp={handleSelection} className="flex flex-col selection:bg-blue-500 selection:text-blue-50">{markdown}</Markdown>
                 {
                     boxVisible && (
                         <div id="chatbox">
@@ -65,46 +64,15 @@ export default function Example({ params: { learnId } }: { params: Params }) {
                         </div>
                     )
                 }
-                <Popover as="header" className="bg-blue-800 pb-24 pt-8">
-                    {({ open }) => (
-                        <>
-                            <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                                <div className="relative flex items-center justify-center py-5 lg:justify-between">
-                                    {/* Logo */}
-                                    <div className="absolute left-0 flex-shrink-0 lg:static">
-                                        <a href="#">
-                                            <span className="sr-only">{companyName}</span>
-                                            <img
-                                                className="h-8 w-auto"
-                                                src={logo}
-                                                alt={companyName}
-                                            />
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </>
-                    )}
-                </Popover>
-                <main className="-mt-16 md:-mt-20 pb-8">
-                    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-5xl lg:px-8">
-                        <h1 className="sr-only">Learn a Topic</h1>
-                        <div className="bg-white rounded-md shadow py-16 px-12 flex justify-center">
-                            <div ref={markdownRef}>
-                                <Markdown onMouseUp={handleSelection} className="flex flex-col selection:bg-blue-500 selection:text-blue-50">{markdown}</Markdown>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-                <footer>
-                    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                        <div className="border-t border-gray-200 py-8 text-center text-sm text-gray-500 sm:text-left">
-                            <span className="block sm:inline">&copy; 2024 {companyName}.</span>{' '}
-                            <span className="block sm:inline">All rights reserved.</span>
-                        </div>
-                    </div>
-                </footer>
             </div>
-        </>
+            <div className="fixed right-28 bottom-10">
+                <a href={`/cards/${learnId}`}>
+                    <button className="bg-blue-400 rounded-full p-3 hover:bg-blue-500">
+                        <RectangleStackIcon className="w-12 h-12 fill-blue-50" />
+                    </button>
+                </a>
+            </div>
+
+        </BaseOutlet>
     )
 }
