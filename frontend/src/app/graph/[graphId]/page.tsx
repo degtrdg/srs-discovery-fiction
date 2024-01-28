@@ -1,11 +1,16 @@
+"use client";
+import React from "react";
+import Flow from "./DAGGraph";
+
 type Params = {
-    graphId: string;
+  graphId: string;
 };
 
 export default function Page({ params: { graphId } }: { params: Params }) {
-    return (
-        <div>
-            graph page: {graphId}
-        </div>
-    );
+  return (
+    <div className="w-full h-screen">
+      {/* <div>graph page: {graphId}</div> */}
+      <Flow />
+    </div>
+  );
 }
