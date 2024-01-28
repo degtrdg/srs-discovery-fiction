@@ -11,7 +11,7 @@ const nodes = [
   {
     id: "1",
     type: "input", // Start node
-    data: { label: "Cell Theory", url: "https://example.com/cell-theory" }, // Add URL here
+    data: { label: "Cell Theory", url: "/learn/cells" }, // Add URL here
     position: { x: 0, y: 0 },
     style: {
       border: "1px solid #333",
@@ -51,7 +51,7 @@ const onNodeClick = (
   node: { data: { url: string | URL | undefined } }
 ) => {
   if (node && node.data.url) {
-    window.open(node.data.url, "_blank");
+    window.open(node.data.url, "_self");
   }
 };
 

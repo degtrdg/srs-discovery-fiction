@@ -13,15 +13,15 @@ const companyName = "Your Company";
 export default function BaseOutlet({ className, children, heading }: BaseOutletProps) {
     return (
         <>
-            <div className="min-h-full">
-                <>
+            <div className="">
+                <header className="head pb-24 pt-8">
                     <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                         <div className="relative flex items-center justify-center py-5 lg:justify-between">
                             <div className="absolute left-0 flex-shrink-0 lg:static">
                                 <a href="#">
                                     <span className="sr-only">{companyName}</span>
                                     <img
-                                        className="h-8 w-auto"
+                                        className="h-8"
                                         src={logo}
                                         alt={companyName}
                                     />
@@ -29,7 +29,7 @@ export default function BaseOutlet({ className, children, heading }: BaseOutletP
                             </div>
                         </div>
                     </div>
-                </>
+                </header>
                 <main className="-mt-16 md:-mt-20 pb-8">
                     <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-5xl lg:px-8">
                         <h1 className="sr-only">{heading}</h1>

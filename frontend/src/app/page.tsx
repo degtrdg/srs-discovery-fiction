@@ -4,15 +4,15 @@ import TopicCard from "@/components/TopicCard";
 
 const topics = [
   {
-    name: "Cells",
-    url: "cells",
-    imageUrl: "https://www.fast.ai/images/enlightenment.jpeg",
+    name: "Biology",
+    url: "biology",
+    imageUrl: "https://iiif.elifesciences.org/journal-cms/subjects%2F2021-11%2Felife-sciences-cell-biology-illustration.jpg/57,0,6903,2082/1114,336/0/default.jpg",
     description: "test description"
   },
   {
-    name: "Genetics",
-    url: "genetics",
-    imageUrl: "https://www.fast.ai/images/enlightenment.jpeg",
+    name: "Computer Science",
+    url: "cs",
+    imageUrl: "https://www.apporto.com/wp-content/uploads/2023/08/Future-of-Computer-Labs.png",
     description: "test description"
   },
 
@@ -28,7 +28,7 @@ export default function Home() {
             key={topic.name}
             className="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow"
           >
-            <a href={`learn/${topic.url}`} className="flex flex-1 flex-col overflow-hidden">
+            <a href={`graph/${topic.url}`} className="flex flex-1 flex-col overflow-hidden">
               {
                 topic ? (
                   <img className="mx-auto w-max rounded object-cover object-center" src={topic?.imageUrl} alt="" />

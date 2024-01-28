@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Flashcard from "@/components/Flashcard";
+import { GlobeAmericasIcon } from "@heroicons/react/24/outline";
 
 type Params = {
     cardId: string;
@@ -72,20 +73,26 @@ export default function Page({ params: { cardId } }: { params: Params }) {
     const currentFlashcard = flashcards[currentFlashcardIndex];
     return (
         <div>
-          {currentFlashcard && (
-            <Flashcard
-              flashcard={currentFlashcard}
-              onGood={() => {
-                handleGood();
-                nextFlashcard();
-              }}
-              onNo={() => {
-                handleNo();
-                nextFlashcard();
-              }}
-            />
-          )}
-          <button onClick={exportToCSV}>Export to CSV</button>
+            {currentFlashcard && (
+                <Flashcard
+                    flashcard={currentFlashcard}
+                    onGood={() => {
+                        handleGood();
+                        nextFlashcard();
+                    }}
+                    onNo={() => {
+                        handleNo();
+                        nextFlashcard();
+                    }}
+                />
+            )}
+            <div className="flex items-center">
+                <button className="rounded-md bg-blue-500 text-slate-100 px-4 py-2 font-semibold" onClick={exportToCSV}>Export to CSV</button>
+                <a href={`/graph/${cardId}`} className="bg-blue-700 text-slate-100 rounded-md flex items-center px-4 py-2 font-semibold">
+                    <GlobeAmericasIcon className="h-8 w-8 fill-white text-blue-700" />
+                    <span>View Depedency Graph</span>
+                </a>
+            </div>
         </div>
     );
 }
