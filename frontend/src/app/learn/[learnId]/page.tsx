@@ -1,7 +1,10 @@
 "use client";
+import { useState, useEffect, useRef } from 'react';
 import { Popover } from '@headlessui/react'
-import ChatFrame from '@/components/ChatFrame';
-import Image from 'next/image';
+import Markdown from '@/components/Markdown';
+import { markdown } from '@/app/config';
+import ChatBox from '@/components/ChatBox';
+
 
 const logo = "https://tailwindui.com/img/logos/mark.svg?color=blue&shade=300";
 const companyName = "Your Company";
@@ -9,15 +12,60 @@ const companyName = "Your Company";
 const topicImage = "https://www.fast.ai/images/enlightenment.jpeg";
 const topicDescription = "test description";
 
+const highlightColor = "bg-yellow-200";
+
 type Params = {
     learnId: string;
 };
 
 export default function Example({ params: { learnId } }: { params: Params }) {
+    const [selectedText, setSelectedText] = useState("");
+    const [boxPosition, setBoxPosition] = useState({ left: 0, top: 0 });
+    const [boxVisible, setBoxVisible] = useState<boolean>(false);
+    const markdownRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event: any) {
+            if (markdownRef.current && !markdownRef.current.contains(event.target)) {
+                setBoxVisible(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [markdownRef]);
+
+    const handleSelection = async () => {
+        const selection = window.getSelection()
+
+        if (selection) {
+
+            const text = selection.toString();
+            const range = selection.getRangeAt(0);
+            const rect = range.getBoundingClientRect();
+            const left = rect.left + window.scrollX;
+            const top = rect.bottom + window.scrollY;
+
+            await setBoxVisible(false);
+            setSelectedText(text);
+            await setBoxVisible(true);
+            await setBoxPosition({ left, top });
+        }
+    };
+
     return (
         <>
             <div className="min-h-full">
-                <Popover as="header" className="bg-blue-800 pb-24">
+                {
+                    boxVisible && (
+                        <div id="chatbox">
+                            <ChatBox bodyText={markdown} boxPosition={boxPosition} selectedText={selectedText} />
+                        </div>
+                    )
+                }
+                <Popover as="header" className="bg-blue-800 pb-24 pt-8">
                     {({ open }) => (
                         <>
                             <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -38,35 +86,12 @@ export default function Example({ params: { learnId } }: { params: Params }) {
                         </>
                     )}
                 </Popover>
-                <main className="-mt-20 md:-mt-24 pb-8">
-                    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+                <main className="-mt-16 md:-mt-20 pb-8">
+                    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-5xl lg:px-8">
                         <h1 className="sr-only">Learn a Topic</h1>
-                        {/* Main 3 column grid */}
-                        <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
-                            {/* Left column */}
-                            <div className="grid grid-cols-1 gap-4">
-                                <section aria-labelledby="section-2-title">
-                                    <h2 className="sr-only" id="section-2-title">
-                                        Topic
-                                    </h2>
-                                    <div className="overflow-hidden rounded-lg bg-white shadow">
-                                        <div className="p-6 ">
-                                            <img className='max-w-xs rounded-md drop-shadow mx-auto' src={topicImage} />
-                                            <p className='mt-3 text-center'>{topicDescription}</p>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-
-                            {/* Right column */}
-                            <div className="grid grid-cols-1 gap-4 lg:col-span-2 h-max">
-                                <section aria-labelledby="section-1-title">
-                                    <div className="overflow-hidden rounded-lg bg-white shadow">
-                                        <div className="p-6">
-                                            <ChatFrame />
-                                        </div>
-                                    </div>
-                                </section>
+                        <div className="bg-white rounded-md shadow py-16 px-12 flex justify-center">
+                            <div ref={markdownRef}>
+                                <Markdown onMouseUp={handleSelection} className="flex flex-col selection:bg-blue-500 selection:text-blue-50">{markdown}</Markdown>
                             </div>
                         </div>
                     </div>

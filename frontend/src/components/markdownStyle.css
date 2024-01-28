@@ -1,0 +1,7 @@
+.markdown h1 {
+    @apply text-3xl text-blue-600;
+}
+
+.markdown {
+    @apply text-gray-700;
+}
